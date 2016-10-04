@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Gertjanroke\Translations;
 
 use Illuminate\Support\ServiceProvider;
 

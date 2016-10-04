@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace Gertjanroke\Translations\Traits;
 
 use App;
 use Illuminate\Support\Str;
@@ -26,13 +26,25 @@ trait Translations
      */
     function saveTranslations($request)
     {
-        foreach ($request->input('trans') as $lang => $attributes) {
-            $attributes['language'] = $lang;
-            $trans                  = $this->translations->where('language', $lang)->first();
-            if ($trans) {
-                $trans->update($attributes);
-            } else {
-                $this->translations()->create($attributes);
+        if (isset(config('translations.form_elements'))) {
+            foreach ($request->input(config('translations.form_elements')) as $locale => $attributes) {
+                $attributes['locale'] = $locale;
+                $trans                  = $this->translations->where('locale', $locale)->first();
+                if ($trans) {
+                    $trans->update($attributes);
+                } else {
+                    $this->translations()->create($attributes);
+                }
+            }
+        } else {
+            foreach ($request->input('trans') as $locale => $attributes) {
+                $attributes['locale'] = $locale;
+                $trans                  = $this->translations->where('locale', $locale)->first();
+                if ($trans) {
+                    $trans->update($attributes);
+                } else {
+                    $this->translations()->create($attributes);
+                }
             }
         }
     }
@@ -89,8 +101,8 @@ trait Translations
      */
     private function getTableName()
     {
-    	if (!empty(config('translations.table'))) {
-			return config('translations.table');
+    	if (!empty(config('translations.model_name'))) {
+			return config('translations.model_name');
     	}
 		return 'Translations';
 
