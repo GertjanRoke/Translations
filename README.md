@@ -120,7 +120,7 @@ public function store(Request $request)
 
 And the package will create a new row in your database table or it will update its existing row.
 
-## Foreign key
+## Custom Foreign key
 
 If for some reason you do not like the way laravel handles the foreign keys and you want to use your own conventions,
 Thust do so by setting the `transForeignKey` variable in your main model.
