@@ -120,6 +120,27 @@ public function store(Request $request)
 
 And the package will create a new row in your database table or it will update its existing row.
 
+## Magic funtions
+
+This package als comes with two handy funtions that let you do things like:
+```php
+$page->title
+```
+and it will check if that attribute existing in your translations table.
+If it exists, the value will be returned in the currunt locale of your application.
+
+The other magic function is dynamic getters.
+Let take the example from above and use that as a method.
+```php
+$page->getTitle();
+```
+This will get the title just like the funtion above,
+but now you can specify with locale version you want of the given attribute.
+```php
+$page->getTitle('en');
+```
+You can change `'en'` for the require locale.
+
 ## Custom Foreign key
 
 If for some reason you do not like the way laravel handles the foreign keys and you want to use your own conventions,
